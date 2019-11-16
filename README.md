@@ -29,8 +29,9 @@ Through the dashboard prototype and prediction model created, the users can now 
 
 
 
-Screenshot and demo:
-
+### Screenshot and demo
+Here's a video for a demo showing how our visualisation module works.
+[![demo video](http://img.youtube.com/vi/10Ag5J4i3dc/0.jpg)](http://www.youtube.com/watch?v=10Ag5J4i3dc)<br>
 
 Number of devices in a stations
 ![Number of devices in a stations](devicesnumbers.JPG)
@@ -41,8 +42,3 @@ A graph showing different stations with comparison to each other in 1 graph(focu
 
 A graph showing the results from our time-series prediction model.
 ![Results from Prediction Model](predictionResult.PNG)
-
-
-Here's a video for a demo showing how our visualisation module works.
-[![demo video](http://img.youtube.com/vi/10Ag5J4i3dc/0.jpg)](http://www.youtube.com/watch?v=10Ag5J4i3dc)<br>
-<!--You can visit the following <a href="https://youtu.be/WsdZUr99Wi0">link</a> for a demo showing how the ML module works.-->
