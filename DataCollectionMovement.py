@@ -23,8 +23,8 @@ print(stations)
 
 
 currentDate = startDate
-frame = datetime.timedelta(seconds = 1)
-increment = datetime.timedelta(minutes = 30)
+frame = datetime.timedelta(seconds = 10)
+increment = datetime.timedelta(minutes = 2)
 lastTick = pd.DataFrame(columns=["hash"])
 result = []
 movementResult = []
@@ -52,21 +52,21 @@ while (endDate > currentDate):
     for label in stations["serial"]:
         buffer.append(len(raw[raw["serial"]==label]))
     result.append(buffer)
+    currentDate += increment
 
-    for row in raw.index:
+"""    for row in raw.index:
         if (len(lastTick.loc[lastTick["hash"] == raw.at[row, "hash"]]) == 0):
             movementResult.append([currentDate, raw.at[row, "hash"], raw.at[row, "serial"], 1])
 
     for lastTickRow in lastTick.index:
         if (len(raw.loc[raw["hash"] == lastTick.at[lastTickRow, "hash"]]) == 0):
             movementResult.append([currentDate, lastTick.at[lastTickRow, "hash"], lastTick.at[lastTickRow, "serial"], 0])
-
-    lastTick = raw
-    currentDate += increment
+"""
+    #lastTick = raw
 
 resultDataframe = pd.DataFrame(result, columns=(np.concatenate([["time"], stations["serial"].values])))
-resultDataframeMovement = pd.DataFrame(movementResult, columns=["time", "hash", "serial", "arrived"])
+#resultDataframeMovement = pd.DataFrame(movementResult, columns=["time", "hash", "serial", "arrived"])
 
-resultDataframe.to_csv("visitorCount.csv")
-resultDataframeMovement.to_csv("movements.csv")
+resultDataframe.to_csv("visitorCount10-2.csv")
+#resultDataframeMovement.to_csv("movements10-2.csv")
 stations.to_csv("stations.csv")
