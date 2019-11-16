@@ -1,24 +1,24 @@
 ## Junction 2019
 
 ### Data Economics track
-### Business finland: The DNA of Helsinki
+#### Business Finland: The DNA of Helsinki
 
 Problem description:
 
-Dive into 1,7 billion data rows of pulsing heart of Helsinki city. Identify behavioural patterns, from real-life city scale environment. Find ways to advance the perception of how the city dynamics work. Improve the city experience that will benefit the people as well as the planet.
+Dive into 1.7 billion data rows of pulsing heart of Helsinki city. Identify behavioural patterns, from real-life city scale environment. Find ways to advance the perception of how the city dynamics work. Improve the city experience that will benefit the people as well as the planet.
 
 Explore a large data set of tourist movement from Port of Helsinki. Discover key interest locations and behavioural models. Find ways to analyse the people flow between key locations and areas, and ways to optimize city services for example for transportation.
 
 
+Project Description:
 
-Goal:
-```
-Our goal is to improve the user-friendliness of data in an objective manner.
-```
-Approach:
-```
-We are using a machine learning module implemented in python that we have built to receive the data and analyze it to get us the correlation between attributes and each other. And regarding the data visualization we will be using Tableau.
-```
+In the current times, everyone wants to make data-driven decisions to minimise loses and maximise gains. However, the multitude of data available in databases is often overwhelming 
+
+Our Goal:
+
+<i>Analyze</i> and <i>visualize</i> Helsinki's Geo-Human traffic data in order to help <i>generate insights</i> in an <i>objective manner</i>.
+
+
 Screenshot and demo:
 
 
