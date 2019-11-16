@@ -1,0 +1,26 @@
+address,postalcode,city,country,description,latitude,longitude,group
+Munkkisaarenlaituri,150,Helsinki,Finland,Hernesaari LHC,60.14951,24.92138,hernesaari
+Mannerheimintie 22-24,100,Helsinki,Finland,Amos Rex,60.17065,24.93641,default
+Tyynenmerenkatu 8,220,Helsinki,Finland,Lansiterminaali 1,60.15432,24.9211,lansiterminaali
+Sibeliuksen puisto,250,Helsinki,Finland,Sibelius Monumentti,60.18203,24.91341,default
+Mattolaituri,140,Helsinki,Finland,Kaivopuiston ranta,60.1538,24.95595,default
+Pakkahuoneenlaituri,100,Helsinki,Finland,Pakkahuoneenlaituri,60.16544,24.95398,default
+Tyynenmerenkatu 14,180,Helsinki,Finland,Lansiterminaali 2,60.14947,24.91438,lansiterminaali
+"Katajanokanlaituri, valopylvas",160,Helsinki,Finland,Katajanokan laituri 2,60.16448,24.97323,katajanokka
+Paasisaankaynti,530,Helsinki,Finland,Hakaniemen kauppahalli 1,60.17918,24.95141,default
+Kaivokatu 2,100,Helsinki,Finland,Ateneum,60.17002,24.94407,default
+Etelaranta,170,Helsinki,Finland,Kauppatori,60.16762,24.95415,default
+Toolonlahdenranta 1,100,Helsinki,Finland,Oodi,60.17368,24.9381,default
+Torikadun sisaankaynti,530,Helsinki,Finland,Hakaniemen kauppahalli 2,60.17919,24.95181,default
+Lutherinkatu 3,100,Helsinki,Finland,Temppeliaukion kirkko,60.173,24.92524,default
+Hernesaarenlaituri,150,Helsinki,Finland,Hernesaari LHD,60.14699,24.922,hernesaari
+Alexanterinkatu 24,170,Helsinki,Finland,Senaatintori lantinen,60.16897,24.95222,default
+Pohjoisespa 41,100,Helsinki,Finland,Stockmann,60.16829,24.94214,default
+Narikkatorin sisaankaynti,100,Helsinki,Finland,Kamppi,60.169,24.93288,default
+Alexanterinkatu 20,170,Helsinki,Finland,Senaatintori itainen,60.16899,24.95337,default
+Katajanokanlaituri 8,160,Helsinki,Finland,Katajanokan terminaali,60.1638,24.96846,katajanokka
+Munkkisaarenlaituri,150,Helsinki,Finland,Hernesaari LHB,60.15133,24.92329,hernesaari
+Olympiaranta 1,100,Helsinki,Finland,Olympiaterminaali,60.16075,24.95883,olympia
+Katajanokka,160,Helsinki,Finland,Katajanokan laituri,60.16629,24.95957,katajanokka
+Erottajankatu 11,130,Helsinki,Finland,Dianapuisto,60.16531,24.9442,default
+Paalaituri,190,Helsinki,Finland,Suomenlinna,60.149,24.9843,default
