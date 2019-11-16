@@ -1,14 +1,15 @@
-# Junction 2019
+## Junction 2019
 
-## Data Economics track (The DNA of Finland)
-
-## Business finland
+### Data Economics track
+### Business finland: The DNA of Helsinki
 
 Problem description:
 
-```
-Given This project is made to help find correlations between large unconnected data attributes given (i.e Weather, people movement, people visit to metro stations ...etc).
-```
+Dive into 1,7 billion data rows of pulsing heart of Helsinki city. Identify behavioural patterns, from real-life city scale environment. Find ways to advance the perception of how the city dynamics work. Improve the city experience that will benefit the people as well as the planet.
+
+Explore a large data set of tourist movement from Port of Helsinki. Discover key interest locations and behavioural models. Find ways to analyse the people flow between key locations and areas, and ways to optimize city services for example for transportation.
+
+
 
 Goal:
 ```
