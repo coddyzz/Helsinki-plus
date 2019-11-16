@@ -34,11 +34,11 @@ Here's a video for a demo showing how our visualisation module works.
 [![demo video](http://img.youtube.com/vi/10Ag5J4i3dc/0.jpg)](http://www.youtube.com/watch?v=10Ag5J4i3dc)<br>
 
 Number of devices in a stations
-[Number of devices in a stations](devicesnumbers.JPG)
+![Number of devices in a stations](devicesnumbers.JPG)
 
 
 A graph showing different stations with comparison to each other in 1 graph(focused on single station)<br>
-[](stationsgraph.jpeg)
+![](stationsgraph.jpeg)
 
 A graph showing the results from our time-series prediction model.
-[Results from Prediction Model](predictionResult.PNG)
+![Results from Prediction Model](predictionResult.PNG)
