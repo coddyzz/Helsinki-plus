@@ -22,12 +22,20 @@ testingSize = 720
 #visitorTimelambda = lambda x: x.minute == 0 or x.minute == 30
 visitorTimelambda = lambda x: x.minute % 2 == 0
 weatherFactors = ['Air temperature (degC)','Horizontal visibility (m)','Wind speed (m/s)', 'Relative humidity (%)', 'Cloud amount (1/8)', 'weekend']
+sunshineFactors = ['Sunshine duration (s)']
+
 
 visitor = pd.read_csv("visitorCount10_2.csv")
 visitor['time'] = [pd.to_datetime(item) for item in visitor['time']]
 stations = pd.read_csv("stations.csv")
-
 stations = stations[stations['serial'].apply(lambda x: x in ['000000000f4919c9', '0000000019fb59c4', '00000000342570c2', '0000000038bf9618', '0000000038d83d41', '0000000053c6c2be', '000000006b087f40', '000000007b5207b6', '00000000a53ed894', '00000000aa852af1', '00000000afef4555', '00000000fb7600be', '00000000fdda10fe', '00000000fffb8cf0'])]
+
+sunshine = pd.read_csv("sunshine.csv")
+sunshine['dateTime'] = [pd.datetime(year=int(sunshine.at[i,'Year']), month=int(sunshine.at[i,'m']), day=int(sunshine.at[i,'d']), hour=int(sunshine.at[i,'Time'][0:2]), minute=int(sunshine.at[i,'Time'][-2:len(sunshine.at[i,'Time'])])) for i in sunshine.index]
+sunshine = sunshine.loc[sunshine['dateTime'] >= visitor.at[0, "time"]]
+sunshine = sunshine.loc[sunshine['dateTime'] <= visitor.at[len(visitor.index) - 1, "time"]]
+sunshine = sunshine[sunshine['dateTime'].apply(visitorTimelambda)]
+
 
 weather = pd.read_csv("Helsinki_weather_data.csv")
 
@@ -47,6 +55,7 @@ weather['dateTime'] = [pd.datetime(year=int(weather.at[i,'Year']), month=int(wea
 weather = weather.loc[weather['dateTime'] >= visitor.at[0, "time"]]
 weather = weather.loc[weather['dateTime'] <= visitor.at[len(visitor.index) - 1, "time"]]
 weather = weather[weather['dateTime'].apply(visitorTimelambda)]
+
 weather['weekend'] = [0 if item.weekday() < 5 else 1 for item in weather['dateTime']]
 weather.fillna(0, inplace = True)
 
@@ -74,6 +83,9 @@ def train(target):
     for factor in weatherFactors:
         resultDataDict[factor] = weather[factor][:len(weather.index)-testingSize].values
 
+    for factor in sunshineFactors:
+        resultDataDict[factor] = sunshine[factor][:len(weather.index)-testingSize].values
+
     features = pd.DataFrame(data=resultDataDict)
 
     poly = PolynomialFeatures(degree = 3)
@@ -92,6 +104,9 @@ def train(target):
 
     for factor in weatherFactors:
         predictDataDict[factor] = weather[factor][-testingSize - 1:].values
+
+    for factor in sunshineFactors:
+        predictDataDict[factor] = sunshine[factor][-testingSize - 1:].values
 
     testFeatures = pd.DataFrame(data=predictDataDict)
     polyTestX = poly.transform(testFeatures.values)
