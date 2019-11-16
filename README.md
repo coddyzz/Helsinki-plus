@@ -15,7 +15,7 @@ Explore a large data set of tourist movement from Port of Helsinki. Discover key
 
 ##### Project Description:
 
-In the current times, everyone wants to make data-driven decisions to minimise loses and maximise gains. However, the multitude of data available in databases is often overwhelming for organisations and individuals to use them easily. Hence, there is a need to improve the accessibility of such data, through visualising and analysing, and allow individuals and organisations to generate objective insights from them.
+With the rise of machine learning and big data, everyone wants to make data-driven decisions to minimise loses and maximise gains. However, the multitude of data available in databases is often overwhelming for organisations and individuals to use them easily. Hence, there is a need to improve the accessibility of such data, through visualising and analysing, and allow individuals and organisations to generate objective insights from them.
 
 This project aims to solve the above problem by utilising implementing a dashboard on Visualisation tool Tableau and predicting future data based on external dataset. Geo-human traffic data utilised were given by Business Finland as part of this hackathon. External dataset used is the Helsinki_weather_data.csv, which was also provided by Business Finland. 
 
