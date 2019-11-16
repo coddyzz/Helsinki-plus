@@ -21,8 +21,9 @@ seasonalPeriod = 720
 testingSize = 720
 #visitorTimelambda = lambda x: x.minute == 0 or x.minute == 30
 visitorTimelambda = lambda x: x.minute % 2 == 0
-weatherFactors = ['Air temperature (degC)','Horizontal visibility (m)','Wind speed (m/s)', 'Relative humidity (%)', 'Cloud amount (1/8)', 'weekend']
-sunshineFactors = ['Sunshine duration (s)']
+weatherFactors = ['Air temperature (degC)', "aggAirTemp", 'Horizontal visibility (m)', "aggVisibility", 'Wind speed (m/s)', 'aggWindSpeed', 'Relative humidity (%)', "aggHumidity", 'Cloud amount (1/8)', 'aggCloud', 'weekend']
+#sunshineFactors = ['Sunshine duration (s)']
+sunshineFactors = ['aggSunshine','Sunshine duration (s)']
 
 
 visitor = pd.read_csv("visitorCount10_2.csv")
@@ -35,7 +36,7 @@ sunshine['dateTime'] = [pd.datetime(year=int(sunshine.at[i,'Year']), month=int(s
 sunshine = sunshine.loc[sunshine['dateTime'] >= visitor.at[0, "time"]]
 sunshine = sunshine.loc[sunshine['dateTime'] <= visitor.at[len(visitor.index) - 1, "time"]]
 sunshine = sunshine[sunshine['dateTime'].apply(visitorTimelambda)]
-
+sunshine["aggSunshine"] = [sum(sunshine["Sunshine duration (s)"][max(0, i - 60):min(i, len(sunshine.index) - 1)]) / 60.0 for i in sunshine.index]
 
 weather = pd.read_csv("Helsinki_weather_data.csv")
 
@@ -55,6 +56,11 @@ weather['dateTime'] = [pd.datetime(year=int(weather.at[i,'Year']), month=int(wea
 weather = weather.loc[weather['dateTime'] >= visitor.at[0, "time"]]
 weather = weather.loc[weather['dateTime'] <= visitor.at[len(visitor.index) - 1, "time"]]
 weather = weather[weather['dateTime'].apply(visitorTimelambda)]
+weather["aggCloud"] = [sum(weather["Cloud amount (1/8)"][max(0, i - 60):min(i, len(weather.index) - 1)]) / (60.0 * 9) for i in weather.index]
+weather["aggVisibility"] = [sum(weather["Horizontal visibility (m)"][max(0, i - 60):min(i, len(weather.index) - 1)]) / 60.0 for i in weather.index]
+weather["aggAirTemp"] = [sum(weather["Air temperature (degC)"][max(0, i - 60):min(i, len(weather.index) - 1)]) / 60.0 for i in weather.index]
+weather["aggWindSpeed"] = [sum(weather["Wind speed (m/s)"][max(0, i - 60):min(i, len(weather.index) - 1)]) / 60.0 for i in weather.index]
+weather["aggHumidity"] = [sum(weather["Relative humidity (%)"][max(0, i - 60):min(i, len(weather.index) - 1)]) / 60.0 for i in weather.index]
 
 weather['weekend'] = [0 if item.weekday() < 5 else 1 for item in weather['dateTime']]
 weather.fillna(0, inplace = True)
