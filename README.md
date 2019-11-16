@@ -22,17 +22,17 @@ Our Goal:
 Screenshot and demo:
 
 
-
-<img src="devicesnumbers.JPG"
-     alt="Number of devices in a stations"
-     style="float: left; margin-right: 10px;" />
 Number of devices in a stations
-
-<img src="stationsgraph.jpeg"
-     alt="Number of devices in a stations"
-     style="float: left; margin-right: 10px;" />
-A graph showing different stations with comparison to each other in 1 graph(focused on single station)
+![Number of devices in a stations](devicesnumbers.JPG)
 
 
+A graph showing different stations with comparison to each other in 1 graph(focused on single station)<br>
+![](stationsgraph.jpeg)
 
-You can visit the following <a href="https://youtu.be/WsdZUr99Wi0">link</a> for a demo showing how the ML module works.
+A graph showing the results from our time-series prediction model.
+![Results from Prediction Model](predictionResult.PNG)
+
+
+Here's a video for a demo showing how our visualisation module works.
+[![demo video](http://img.youtube.com/vi/10Ag5J4i3dc/0.jpg)](http://www.youtube.com/watch?v=10Ag5J4i3dc)<br>
+<!--You can visit the following <a href="https://youtu.be/WsdZUr99Wi0">link</a> for a demo showing how the ML module works.-->
