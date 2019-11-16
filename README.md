@@ -18,7 +18,7 @@ Screenshot and demo:
 
 
 
-<img src="devicesnumbers.jpg"
+<img src="devicesnumbers.JPG"
      alt="Number of devices in a stations"
      style="float: left; margin-right: 10px;" />
 Number of devices in a stations
