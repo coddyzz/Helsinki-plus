@@ -13,15 +13,15 @@ from sklearn.svm import SVR
 import copy
 from sklearn.utils.testing import ignore_warnings
 from sklearn.exceptions import ConvergenceWarning
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import OneHotEncoder
+
 
 seasonalPeriod = 720
 testingSize = 720
 #visitorTimelambda = lambda x: x.minute == 0 or x.minute == 30
 visitorTimelambda = lambda x: x.minute % 2 == 0
-weatherFactors = []
-weatherFactors = ['Air temperature (degC)','Horizontal visibility (m)','Wind speed (m/s)']
-targets = '00000000342570c2'
-#target = '00000000aa852af1'
+weatherFactors = ['Air temperature (degC)','Horizontal visibility (m)','Wind speed (m/s)', 'Relative humidity (%)', 'Cloud amount (1/8)', 'weekend']
 
 visitor = pd.read_csv("visitorCount10_2.csv")
 visitor['time'] = [pd.to_datetime(item) for item in visitor['time']]
@@ -47,28 +47,29 @@ weather['dateTime'] = [pd.datetime(year=int(weather.at[i,'Year']), month=int(wea
 weather = weather.loc[weather['dateTime'] >= visitor.at[0, "time"]]
 weather = weather.loc[weather['dateTime'] <= visitor.at[len(visitor.index) - 1, "time"]]
 weather = weather[weather['dateTime'].apply(visitorTimelambda)]
-
+weather['weekend'] = [0 if item.weekday() < 5 else 1 for item in weather['dateTime']]
 weather.fillna(0, inplace = True)
 
 @ignore_warnings(category=ConvergenceWarning)
 def train(target):
-    #holtWinterStation = [target]
-    holtWinterStation = ['0000000019fb59c4', '00000000342570c2', '0000000038bf9618', '0000000053c6c2be', '000000006b087f40', '000000007b5207b6', '00000000aa852af1', '00000000fffb8cf0']
+    holtWinterStation = [target]
+    """    holtWinterStation = ['0000000019fb59c4', '00000000342570c2', '0000000038bf9618', '0000000053c6c2be', '000000006b087f40', '000000007b5207b6', '00000000aa852af1', '00000000fffb8cf0']
     if (not target in holtWinterStation):
         holtWinterStation.append(target)
-
-    trainX = (visitor[target][:-testingSize])
+    """
     #trainX = (visitor[target][:-testingSize]).ewm(span = 100, adjust=False).mean()
 
     holtWinterModelsFit3 = []
     for label in holtWinterStation:
-        fit3 = ExponentialSmoothing(trainX+1, seasonal_periods=seasonalPeriod, trend='add', seasonal='add', damped=True).fit(use_boxcox=True)
+        fit3 = ExponentialSmoothing((visitor[label][:-testingSize])+1, seasonal_periods=seasonalPeriod, trend='add', seasonal='add', damped=True).fit(use_boxcox=True)
         holtWinterModelsFit3.append(fit3)
 
 
+    trainX = (visitor[target][:-testingSize])
+
     resultDataDict = {}
     for i in range(len(holtWinterStation)):
-        resultDataDict[holtWinterStation[i] + "2"] = holtWinterModelsFit3[i].predict(start=0,end=len(visitor.index)-testingSize - 1) - 1
+        resultDataDict[holtWinterStation[i] + "2"] = holtWinterModelsFit3[i].predict(start=0, end=len(visitor.index)-testingSize - 1) - 1
 
     for factor in weatherFactors:
         resultDataDict[factor] = weather[factor][:len(weather.index)-testingSize].values
@@ -78,7 +79,7 @@ def train(target):
     poly = PolynomialFeatures(degree = 3)
     polyX = poly.fit_transform(features.values, y=visitor[target][:-testingSize])
 
-    #regressor = SVR(kernel="linear")
+    #regressor = SVR(kernel="poly", coef0=0.0, degree=2)
     regressor = LinearRegression()
     rfe = RFE(regressor, n_features_to_select=None, step=1)
     rfe = rfe.fit(polyX, visitor[target][:-testingSize])
@@ -87,7 +88,7 @@ def train(target):
     predictDataDict = {}
     holtWinterPredict = []
     for i in range(len(holtWinterStation)):
-        predictDataDict[holtWinterStation[i] + "2"] = holtWinterModelsFit3[i].predict(start=len(visitor.index)-testingSize, end=len(visitor.index))
+        predictDataDict[holtWinterStation[i] + "2"] = holtWinterModelsFit3[i].predict(start=len(visitor.index)-testingSize, end=len(visitor.index)) - 1
 
     for factor in weatherFactors:
         predictDataDict[factor] = weather[factor][-testingSize - 1:].values
@@ -118,9 +119,9 @@ for label in stations['serial']:
                 best = error
                 bestLabel = label
             if (error < 50.0):
-                pd.DataFrame(data={"prediction" : prediction, "actual": visitor[label][-testingSize - 1:]}).to_csv("%sPrediction.csv" % (label), index = False)
                 goodWorking.append(label)
 
+        pd.DataFrame(data={"prediction" : prediction, "actual": visitor[label][-testingSize - 1:]}).to_csv("%sPrediction.csv" % (label), index = False)
         convergent.append(label)
     except Exception as e:
         count -= 1
