@@ -38,6 +38,8 @@ sunshine = sunshine.loc[sunshine['dateTime'] <= visitor.at[len(visitor.index) - 
 sunshine = sunshine[sunshine['dateTime'].apply(visitorTimelambda)]
 sunshine["aggSunshine"] = [sum(sunshine["Sunshine duration (s)"][max(0, i - 60):min(i, len(sunshine.index) - 1)]) / 60.0 for i in sunshine.index]
 
+events = pd.read_csv("eventsPlaces.csv")
+
 weather = pd.read_csv("Helsinki_weather_data.csv")
 
 for label in stations['serial']:
@@ -67,6 +69,11 @@ weather.fillna(0, inplace = True)
 
 @ignore_warnings(category=ConvergenceWarning)
 def train(target):
+
+
+
+
+
     holtWinterStation = [target]
     """    holtWinterStation = ['0000000019fb59c4', '00000000342570c2', '0000000038bf9618', '0000000053c6c2be', '000000006b087f40', '000000007b5207b6', '00000000aa852af1', '00000000fffb8cf0']
     if (not target in holtWinterStation):
@@ -92,6 +99,9 @@ def train(target):
     for factor in sunshineFactors:
         resultDataDict[factor] = sunshine[factor][:len(weather.index)-testingSize].values
 
+    #resultDataDict["events"] = events[target+"events"][:len(weather.index)-testingSize].values
+    resultDataDict["places"] = events[target+"places"][:len(weather.index)-testingSize].values
+
     features = pd.DataFrame(data=resultDataDict)
 
     poly = PolynomialFeatures(degree = 3)
@@ -113,6 +123,9 @@ def train(target):
 
     for factor in sunshineFactors:
         predictDataDict[factor] = sunshine[factor][-testingSize - 1:].values
+
+    #predictDataDict["events"] = events[target+"events"][-testingSize - 1:].values
+    predictDataDict["places"] = events[target+"places"][-testingSize - 1:].values
 
     testFeatures = pd.DataFrame(data=predictDataDict)
     polyTestX = poly.transform(testFeatures.values)
